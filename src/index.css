@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    color: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  @keyframes border-beam {
+    0%, 100% {
+      offset-distance: 0%;
+    }
+    50% {
+      offset-distance: 100%;
+    }
+  }
+
+  .animate-border-beam {
+    animation: border-beam var(--duration, 15s) infinite linear;
+    animation-delay: var(--delay, 0s);
+    background-size: 200% 100%;
+    animation-name: border-beam-slide;
+  }
+
+  @keyframes border-beam-slide {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 200% 0%;
+    }
+  }
+}

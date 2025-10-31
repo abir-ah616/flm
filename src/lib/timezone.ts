@@ -29,14 +29,12 @@ export function formatBDTDate(dateString: string): string {
 
 export function formatBDTTime(timeString: string): string {
   const time = new Date(timeString);
-  const utc = time.getTime() + (time.getTimezoneOffset() * 60000);
-  const bdtTime = new Date(utc + (6 * 60 * 60000));
 
-  return bdtTime.toLocaleTimeString("en-US", {
+  return time.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
-    timeZone: "UTC"
+    timeZone: "Asia/Dhaka"
   });
 }
 

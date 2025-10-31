@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ListOrdered, Search, ArrowUpDown, Edit, Trash2, ArrowLeft } from "lucide-react";
 import { useAuth } from "../lib/auth-context";
 import { logTournamentDeletion } from "../lib/audit-helper";
+import { formatBDTTime } from "../lib/timezone";
 
 type SortField = "date" | "tournament_name" | "status" | "created_at";
 type SortOrder = "asc" | "desc";
@@ -298,10 +299,7 @@ export function AllTournamentsPage() {
                         <div>
                           <span className="text-slate-500 dark:text-slate-400">Start:</span>
                           <span className="ml-2 text-slate-800 dark:text-slate-200 font-medium">
-                            {new Date(tournament.start_time).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
+                            {formatBDTTime(tournament.start_time)}
                           </span>
                         </div>
                         <div>

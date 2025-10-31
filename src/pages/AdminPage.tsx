@@ -153,13 +153,18 @@ export function AdminPage() {
     if (tournament) {
       setEditingTournament(tournament);
       const dateObj = new Date(tournament.date);
+
       const idpTime = new Date(tournament.idp_time);
       const startTime = new Date(tournament.start_time);
       const delayedTime = tournament.delayed_date ? new Date(tournament.delayed_date) : null;
 
-      const idp12 = convertTo12Hour(idpTime.getHours());
-      const start12 = convertTo12Hour(startTime.getHours());
-      const delayed12 = delayedTime ? convertTo12Hour(delayedTime.getHours()) : { hour: 12, period: 'PM' as 'AM' | 'PM' };
+      const idpBDT = new Date(idpTime.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+      const startBDT = new Date(startTime.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+      const delayedBDT = delayedTime ? new Date(delayedTime.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })) : null;
+
+      const idp12 = convertTo12Hour(idpBDT.getHours());
+      const start12 = convertTo12Hour(startBDT.getHours());
+      const delayed12 = delayedBDT ? convertTo12Hour(delayedBDT.getHours()) : { hour: 12, period: 'PM' as 'AM' | 'PM' };
 
       setFormData({
         tournament_name: tournament.tournament_name,
@@ -177,13 +182,13 @@ export function AdminPage() {
         month: (dateObj.getMonth() + 1).toString().padStart(2, '0'),
         day: dateObj.getDate().toString(),
         idp_hour: idp12.hour.toString(),
-        idp_minute: idpTime.getMinutes().toString().padStart(2, '0'),
+        idp_minute: idpBDT.getMinutes().toString().padStart(2, '0'),
         idp_period: idp12.period,
         start_hour: start12.hour.toString(),
-        start_minute: startTime.getMinutes().toString().padStart(2, '0'),
+        start_minute: startBDT.getMinutes().toString().padStart(2, '0'),
         start_period: start12.period,
-        delayed_hour: delayedTime ? delayed12.hour.toString() : "",
-        delayed_minute: delayedTime ? delayedTime.getMinutes().toString().padStart(2, '0') : "",
+        delayed_hour: delayedBDT ? delayed12.hour.toString() : "",
+        delayed_minute: delayedBDT ? delayedBDT.getMinutes().toString().padStart(2, '0') : "",
         delayed_period: delayed12.period,
       });
     } else {
@@ -238,13 +243,13 @@ export function AdminPage() {
     const startHour24 = convertTo24Hour(parseInt(formData.start_hour || '0'), formData.start_period || 'PM');
 
     const dateString = `${formData.year}-${formData.month}-${formData.day?.padStart(2, '0')}`;
-    const idpTimeString = `${dateString}T${idpHour24.toString().padStart(2, '0')}:${formData.idp_minute?.padStart(2, '0')}:00`;
-    const startTimeString = `${dateString}T${startHour24.toString().padStart(2, '0')}:${formData.start_minute?.padStart(2, '0')}:00`;
+    const idpTimeString = `${dateString}T${idpHour24.toString().padStart(2, '0')}:${formData.idp_minute?.padStart(2, '0')}:00+06:00`;
+    const startTimeString = `${dateString}T${startHour24.toString().padStart(2, '0')}:${formData.start_minute?.padStart(2, '0')}:00+06:00`;
 
     let delayedDateISO = null;
     if (formData.status === "delayed" && formData.delayed_hour && formData.delayed_minute) {
       const delayedHour24 = convertTo24Hour(parseInt(formData.delayed_hour), formData.delayed_period || 'PM');
-      const delayedTimeString = `${dateString}T${delayedHour24.toString().padStart(2, '0')}:${formData.delayed_minute?.padStart(2, '0')}:00`;
+      const delayedTimeString = `${dateString}T${delayedHour24.toString().padStart(2, '0')}:${formData.delayed_minute?.padStart(2, '0')}:00+06:00`;
       delayedDateISO = new Date(delayedTimeString).toISOString();
     }
 

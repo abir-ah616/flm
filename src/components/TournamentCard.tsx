@@ -120,21 +120,21 @@ export function TournamentCard({ tournament, delay = 0 }: TournamentCardProps) {
 
           <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-body">Start Time</p>
-                <p className="text-sm font-body font-semibold text-slate-800 dark:text-slate-200">
-                  {formatTime(tournament.start_time)}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
               <Timer className="w-4 h-4 text-emerald-500 flex-shrink-0" />
               <div className="min-w-0">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-body">IDP Time</p>
                 <p className="text-sm font-body font-semibold text-slate-800 dark:text-slate-200">
                   {formatTime(tournament.idp_time)}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-body">Start Time</p>
+                <p className="text-sm font-body font-semibold text-slate-800 dark:text-slate-200">
+                  {formatTime(tournament.start_time)}
                 </p>
               </div>
             </div>
